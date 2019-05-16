@@ -17,7 +17,8 @@ function createRockets() {
         myRockets[i] = new Rocket(rockets[i][0]);
 
         for (let e = 0; e < rockets[i][1].length; e++) {
-            myRockets[i].addThruster(new Thruster(rockets[i][1][e],0))
+            myRockets[i].addThruster(new Thruster(rockets[i][1][e],startPower))
+            //myRockets[i].accelerate(e)
         }
     }
     showRockets(myRockets, rockets);                  
