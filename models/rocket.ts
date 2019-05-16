@@ -7,6 +7,7 @@ class Rocket{
         this.code=code;
     }
     
+    
     addThruster(thruster:Thruster):void{
         this.thrusters.push(thruster);
     }
