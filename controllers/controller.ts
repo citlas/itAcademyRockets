@@ -31,6 +31,7 @@ function showRockets(myRockets:any){
 
     for (let i = 0; i < myRockets.length; ++i) {
         let rocket = document.createElement('p'); 
+        rocket.classList.add("display-4", "text-secondary");
         displayRocketsContainer!.appendChild(rocket).textContent = `Rocket ${myRockets[i].code} has ${myRockets[i].thrusters.length} thrusters`
     }
 }
