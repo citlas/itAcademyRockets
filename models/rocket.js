@@ -10,11 +10,11 @@ var Rocket = /** @class */ (function () {
     };
     Rocket.prototype.accelerate = function (i) {
         this.thrusters[i].power += 10;
-        console.log(this.thrusters[i].power);
+        //console.log(this.thrusters[i].power);
     };
     Rocket.prototype.slowing = function (i) {
         this.thrusters[i].power -= 10;
-        console.log(this.thrusters[i].power);
+        //console.log(this.thrusters[i].power);
     };
     return Rocket;
 }());

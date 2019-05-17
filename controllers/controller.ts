@@ -5,6 +5,10 @@ testear antes de crear objeto
 ocultar lo que no se necesita
  */
 
+ 
+ 
+ 
+
 function createRockets() {    
     let rocket1:any, rocket2:any
     rocket1=['32WESSDS',[10,30,80]]
@@ -13,13 +17,32 @@ function createRockets() {
     let myRockets:any = []
     const startPower = 0
 
+    
+
     for (let i = 0; i < rockets.length; ++i) {
         myRockets[i] = new Rocket(rockets[i][0]);
 
+       
+
         for (let e = 0; e < rockets[i][1].length; e++) {
             myRockets[i].addThruster(new Thruster(rockets[i][1][e],startPower))
-            //myRockets[i].accelerate(e)
-        }
+            console.log(myRockets[i].thrusters[e].power);
+
+            // let maxPowerTotal = rockets[i][1].reduce(
+            //     ( accumulator:number, currentValue:number ) => accumulator + currentValue,
+            //     0
+            //   );
+    
+            //   console.log(maxPowerTotal);
+          
+              
+            if (myRockets[i].thrusters[e].power<myRockets[i].thrusters[e].maxPower){
+                myRockets[i].accelerate(e) 
+            } else {
+                alert('has llegado a la maxima potencia')
+            }
+            console.log(myRockets[i].thrusters[e].power);
+             }
     }
     showRockets(myRockets, rockets);                  
 }

@@ -15,12 +15,12 @@ class Rocket{
 
     accelerate(i):void{
         this.thrusters[i].power+=10
-        console.log(this.thrusters[i].power);
+        //console.log(this.thrusters[i].power);
     }
 
     slowing(i):void{
         this.thrusters[i].power-=10
-        console.log(this.thrusters[i].power);
+        //console.log(this.thrusters[i].power);
     }
 
 }
