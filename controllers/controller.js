@@ -35,21 +35,36 @@ function showRockets(myRockets, rockets) {
 }
 function calculateCurrentSpeed(myRockets, showInfo) {
     //calculating current speed
-    for (var e = 0; e < myRockets.length; e++) {
-        for (var i = 0; i < myRockets[e].thrusters.length; i++) {
-            myRockets[e].totalSpeed += myRockets[e].thrusters[i].power;
-        }
-        if (!showInfo) {
-            console.log(myRockets[e].code + ' current speed is ' + myRockets[e].totalSpeed);
-            var additionalInfo = document.createElement('p');
-            document.querySelector('.displayRockets').appendChild(additionalInfo).textContent = myRockets[e].code + ' current speed is ' + myRockets[e].totalSpeed;
-        }
+    console.log(myRockets);
+    for (var key in myRockets) {
+        var additionalInfo = document.createElement('p');
+        document.querySelector('.displayRockets').appendChild(additionalInfo).textContent = myRockets[key].code + ' current speed is ' + myRockets[key].totalSpeed;
     }
+    //  for (var key in myRockets) {
+    //     myRockets[key].totalSpeed =0
+    //     for(var i=0;i<myRockets[key].thrusters.length;i++) {
+    //         myRockets[key].totalSpeed += myRockets[key].thrusters[i].power
+    //     }
+    //      console.log(myRockets[key].code + ' speed is ' + myRockets[key].totalSpeed);
+    //  }
+    //      for (let e= 0; e<myRockets.length;e++) {
+    //          let tempSpeed = 0
+    //          myRockets[e].totalSpeed = 0
+    //         for(var i=0;i<myRockets[e].thrusters.length;i++) {
+    //             tempSpeed+= myRockets[e].thrusters[i].power
+    //             myRockets[e].totalSpeed += tempSpeed
+    //         }
+    //         if(!showInfo){
+    //             console.log(myRockets[e].code + ' current speed is ' + myRockets[e].totalSpeed);
+    //             let additionalInfo = document.createElement('p'); 
+    //    document.querySelector('.displayRockets')!.appendChild(additionalInfo).textContent = myRockets[e].code + ' current speed is ' + myRockets[e].totalSpeed
+    //         }
+    //      }
 }
 function calculateMaxSpeed(myRockets) {
     //calculating max speed
     for (var key in myRockets) {
-        console.log(myRockets[key].thrusters.length + ' ' + myRockets[key].code);
+        //console.log(myRockets[key].thrusters.length + ' ' + myRockets[key].code);
         for (var i = 0; i < myRockets[key].thrusters.length; i++) {
             myRockets[key].totalMaxSpeed += myRockets[key].thrusters[i].maxPower;
         }
@@ -57,12 +72,16 @@ function calculateMaxSpeed(myRockets) {
     }
 }
 function accelerateRocket(myRockets, indexToSlow) {
-    calculateCurrentSpeed(myRockets, 'hideInfo');
+    //calculateCurrentSpeed(myRockets,'hideInfo')
     console.log(myRockets);
     if (typeof indexToSlow == 'number') {
+        //cambiar esto para que quede como el de abajo
         for (var e = 0; e < myRockets[indexToSlow].thrusters.length; e++) {
+            var tempSpeed = 0;
             if (myRockets[indexToSlow].thrusters[e].power < myRockets[indexToSlow].thrusters[e].maxPower) {
                 myRockets[indexToSlow].accelerate(e);
+                //tempSpeed+= myRockets[indexToSlow].thrusters[e].power
+                //myRockets[e].totalSpeed += tempSpeed
             }
             else {
                 console.log(myRockets[indexToSlow].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[indexToSlow].thrusters[e]);
@@ -70,16 +89,31 @@ function accelerateRocket(myRockets, indexToSlow) {
         }
     }
     else {
-        for (var i = 0; i < myRockets.length; i++) {
-            for (var e = 0; e < myRockets[i].thrusters.length; e++) {
-                if (myRockets[i].thrusters[e].power < myRockets[i].thrusters[e].maxPower) {
-                    myRockets[i].accelerate(e);
+        for (var key in myRockets) {
+            myRockets[key].totalSpeed = 0;
+            for (var i = 0; i < myRockets[key].thrusters.length; i++) {
+                if (myRockets[key].thrusters[i].power < myRockets[key].thrusters[i].maxPower) {
+                    myRockets[key].accelerate(i);
                 }
                 else {
-                    console.log(myRockets[i].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[i].thrusters[e]);
+                    console.log(myRockets[key].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[key].thrusters[i]);
                 }
+                myRockets[key].totalSpeed += myRockets[key].thrusters[i].power;
             }
+            console.log(myRockets[key].code + ' speed is ' + myRockets[key].totalSpeed);
         }
+        // for (let i = 0; i < myRockets.length; i++) {
+        //     let tempSpeed = 0
+        //     for (let e = 0; e < myRockets[i].thrusters.length; e++) {
+        //         if (myRockets[i].thrusters[e].power<myRockets[i].thrusters[e].maxPower){
+        //      myRockets[i].accelerate(e) 
+        //      tempSpeed+= myRockets[i].thrusters[e].power
+        //      myRockets[i].totalSpeed += tempSpeed
+        //      } else {
+        //      console.log(myRockets[i].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[i].thrusters[e] )
+        //  }
+        //     }
+        // }
     }
 }
 function slowingRocket(myRockets, indexToSlow) {
@@ -129,20 +163,20 @@ function showCurentSpeedRocket(myRockets) {
     accelerateRocket(myRockets);
     calculateCurrentSpeed(myRockets);
     addRocketActionInfo('slowing', 5, myRockets, 0);
-    slowingRocket(myRockets, 0);
-    slowingRocket(myRockets, 0);
-    slowingRocket(myRockets, 0);
-    slowingRocket(myRockets, 0);
-    slowingRocket(myRockets, 0);
-    addRocketActionInfo('accelerating', 7, myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    accelerateRocket(myRockets, 1);
-    calculateCurrentSpeed(myRockets);
+    /*slowingRocket(myRockets,0)
+    slowingRocket(myRockets,0)
+    slowingRocket(myRockets,0)
+    slowingRocket(myRockets,0)
+    slowingRocket(myRockets,0)
+    addRocketActionInfo('accelerating',7,myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    accelerateRocket(myRockets,1)
+    calculateCurrentSpeed(myRockets)*/
     //acelerar 3 veces
     //mostrar velocidad actual
     //frenar 5 veces con el primero, acelerar 7 con el segundo
