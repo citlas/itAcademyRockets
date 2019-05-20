@@ -14,17 +14,19 @@ class Rocket{
         this.thrusters.push(thruster);
     }
 
-    accelerate(i):void{
+    accelerate(i:any):void{
         //if(this.totalSpeed<this.totalMaxSpeed){
             this.thrusters[i].power+=10
+            this.totalSpeed+=10
         //}
         
         //console.log(this.thrusters[i].power);
     }
 
-    slowing(i):void{
+    slowing(i:any):void{
         //if(this.totalSpeed>=10){
             this.thrusters[i].power-=10
+            this.totalSpeed-=10
         //}
         //console.log(this.thrusters[i].power);
     }

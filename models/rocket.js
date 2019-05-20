@@ -13,12 +13,14 @@ var Rocket = /** @class */ (function () {
     Rocket.prototype.accelerate = function (i) {
         //if(this.totalSpeed<this.totalMaxSpeed){
         this.thrusters[i].power += 10;
+        this.totalSpeed += 10;
         //}
         //console.log(this.thrusters[i].power);
     };
     Rocket.prototype.slowing = function (i) {
         //if(this.totalSpeed>=10){
         this.thrusters[i].power -= 10;
+        this.totalSpeed -= 10;
         //}
         //console.log(this.thrusters[i].power);
     };
