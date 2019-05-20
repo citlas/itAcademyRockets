@@ -18,9 +18,40 @@
     
     <div class="container">
         <h1 class="display-1 text-center">Rockets</h1>
-        <div class="rocketsContainer">
-            <button id="createButton" type="button" onclick="createRockets()" class="btn btn-outline-secondary btn-block my-5">Create rockets</button>
-            <div class="displayRockets text-center"></div>
+        <div class="row">
+        <div class="rocketsContainer col-6">
+            <div class="row">
+            <button id="createRocket1" type="button" onclick="createRocket1()" class="btn btn-outline-secondary m-3 col-4">Create rocket 1</button>
+            <button id="createRocket2" type="button" onclick="createRocket2()" class="btn btn-outline-secondary m-3 col-4">Create rocket 2</button>
+            </div>
+            <div class="row">
+            <button id="accelerateRocket1" type="button" onclick="accelerateRocket1()" class="btn btn-outline-secondary m-3 col-4">Accelerate rockets 1</button>
+            <button id="accelerateRocket2" type="button" onclick="accelerateRocket2()" class="btn btn-outline-secondary m-3 col-4">Accelerate rockets 2</button>
+            </div>
+            <div class="row">
+            <button id="breakRocket1" type="button" onclick="breakRocket1()" class="btn btn-outline-secondary m-3 col-4">Break rocket 1</button>
+            <button id="breakRocket2" type="button" onclick="breakRocket2()" class="btn btn-outline-secondary m-3 col-4">Break rocket 2</button>
+            </div>
+            <div class="row">
+            <button id="printRocket1" type="button" onclick="printRocket1()" class="btn btn-outline-secondary m-3 col-4">Print rocket 1</button>
+            <button id="printRocket1" type="button" onclick="printRocket1()" class="btn btn-outline-secondary m-3 col-4">Print rocket 2</button>
+            </div>
+            <div class="row">
+            <button id="printAllRockets" type="button" onclick="printAllRockets()" class="btn btn-outline-secondary m-3 col-4">Print all rockets</button>
+            </div>
+            
+        </div>
+        <div class="displayRockets text-center col-6">
+            <div class="row">
+                <div class="displayRocket1 col-6">
+                      
+                </div>
+                <div class="displayRocket2 col-6">
+                   
+                </div>
+            </div>
+                
+        </div>
         </div>
 
     </div>

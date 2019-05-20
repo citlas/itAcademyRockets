@@ -9,47 +9,79 @@ ocultar lo que no se necesita
  
  
 
-function createRockets() {    
-    let rocket1:any, rocket2:any
+// function createRockets() {    
+//     let rocket1:any, rocket2:any
+//     rocket1=['32WESSDS',[10,30,80]]
+//     rocket2=['LDSFJA32',[30,40,50,50,30,10]]
+//     let rockets = [rocket1,rocket2]
+//     let myRockets:any = []
+//     const startPower = 0
+
+//     for (let i = 0; i < rockets.length; ++i) {
+//         myRockets[i] = new Rocket(rockets[i][0]);
+
+//         for (let e = 0; e < rockets[i][1].length; e++) {
+//             myRockets[i].addThruster(new Thruster(rockets[i][1][e],startPower))
+//             console.log(myRockets[i].thrusters[e].power);
+        
+//              }
+//     }
+//     showRockets(myRockets, rockets);                  
+// }
+
+let myRockets:any=[]
+   
+function createRocket1() {   
+     
+    let rocket1:any
     rocket1=['32WESSDS',[10,30,80]]
-    rocket2=['LDSFJA32',[30,40,50,50,30,10]]
-    let rockets = [rocket1,rocket2]
-    let myRockets:any = []
+    let myRocket1:any
+    
     const startPower = 0
+    myRocket1 = new Rocket('32WESSDS');
+    
+    for (let i = 0; i < rocket1[1].length; i++) {
+        myRocket1.addThruster(new Thruster(rocket1[1][i],startPower))
+    }
+    myRockets.push(myRocket1)
+    calculateMaxSpeed(myRocket1)
+    showRocket(myRocket1,1,rocket1);   
+}
+
+function createRocket2() {   
+     
+    let rocket2:any
+    rocket2=['LDSFJA32',[30,40,50,50,30,10]]
+    let myRocket2:any
+    
+    const startPower = 0
+    myRocket2 = new Rocket('LDSFJA32');
+    
+    for (let i = 0; i < rocket2[1].length; i++) {
+        myRocket2.addThruster(new Thruster(rocket2[1][i],startPower))
+    }
+    myRockets.push(myRocket2)
+    calculateMaxSpeed(myRocket2)
+    showRocket(myRocket2,2,rocket2);   
+}
+
+function showRocket(myRocket:any,rocketnumber:number,whichRocket:any){
+    let displayThisRocket = '.displayRocket'+rocketnumber
+    let hideThisButton = '#createRocket'+rocketnumber
+
+    let hideButton:any = document.querySelector(hideThisButton)! 
+    hideButton.classList.add("d-none");
+    
+    let displayRocketContainer:any = document.querySelector(displayThisRocket)! 
+    displayRocketContainer.textContent = "";
 
     
+    let rocket = document.createElement('p'); 
+    rocket.classList.add("text-secondary");
 
-    for (let i = 0; i < rockets.length; ++i) {
-        myRockets[i] = new Rocket(rockets[i][0]);
-
-       
-
-        for (let e = 0; e < rockets[i][1].length; e++) {
-            myRockets[i].addThruster(new Thruster(rockets[i][1][e],startPower))
-            console.log(myRockets[i].thrusters[e].power);
-
-           
-             }
-    }
-    showRockets(myRockets, rockets);                  
-}
-   
-
-
-
-function showRockets(myRockets:any,rockets:any){
-    let button:any = document.querySelector('#createButton')! 
-    button.classList.add("d-none");
-    let displayRocketsContainer:any = document.querySelector('.displayRockets')! 
-    displayRocketsContainer.textContent = "";
-
-    for (let i = 0; i < myRockets.length; ++i) {
-        let rocket = document.createElement('p'); 
-        rocket.classList.add("text-secondary");
-
-        displayRocketsContainer!.appendChild(rocket).textContent = `Rocket ${myRockets[i].code} has ${myRockets[i].thrusters.length} thrusters with max power ${rockets[i][1]}`    
-    }
-    showCurentSpeedRocket(myRockets)
+    displayRocketContainer!.appendChild(rocket).textContent = `Rocket ${myRocket.code} has ${myRocket.thrusters.length} thrusters with max power ${whichRocket[1]}`    
+    
+    //showCurentSpeedRocket(myRockets)
 }
 
 function calculateCurrentSpeed(myRockets:any, showInfo?:string){
@@ -65,48 +97,50 @@ function calculateCurrentSpeed(myRockets:any, showInfo?:string){
     
 }
 
-function calculateMaxSpeed(myRockets:any){
-//calculating max speed
-for (var key in myRockets) {
-    //console.log(myRockets[key].thrusters.length + ' ' + myRockets[key].code);
-    for(var i=0;i<myRockets[key].thrusters.length;i++) {
-        myRockets[key].totalMaxSpeed += myRockets[key].thrusters[i].maxPower
+function calculateMaxSpeed(myRocket:any){
+    for(var i=0;i<myRocket.thrusters.length;i++) {
+        myRocket.totalMaxSpeed += myRocket.thrusters[i].maxPower
     }
-     console.log(myRockets[key].code + ' total max speed is ' + myRockets[key].totalMaxSpeed);
- }
+     console.log(myRocket.code + ' total max speed is ' + myRocket.totalMaxSpeed);
 }
 
-function accelerateRocket(myRockets:any, indexToSlow?:number){
-    console.log(myRockets);
-    if(typeof indexToSlow == 'number'){
-        for (let e = 0; e < myRockets[indexToSlow].thrusters.length; e++) {
-            if (myRockets[indexToSlow].thrusters[e].power<myRockets[indexToSlow].thrusters[e].maxPower){
-                myRockets[indexToSlow].accelerate(e) 
-
-            } else {
-                console.log(myRockets[indexToSlow].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[indexToSlow].thrusters[e])
-            }
+function accelerateRocket1(){
+    console.log(myRockets);    
+    for(var i=0;i<myRockets[0].thrusters.length;i++) {
+        if (myRockets[0].thrusters[i].power<myRockets[0].thrusters[i].maxPower){
+            myRockets[0].accelerate(i)
+            
+        } else {
+            console.log(myRockets[0].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[0].thrusters[i] )
         }
-    } else {
-
-
-        for (var key in myRockets) {
-            for(var i=0;i<myRockets[key].thrusters.length;i++) {
-                if (myRockets[key].thrusters[i].power<myRockets[key].thrusters[i].maxPower){
-                    myRockets[key].accelerate(i)
-                    
-                } else {
-                    console.log(myRockets[key].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[key].thrusters[i] )
-                }
-               
-            }
-             console.log(myRockets[key].code + ' speed is ' + myRockets[key].totalSpeed);
-         }
-
-
         
     }
+        console.log(myRockets[0].code + ' speed is ' + myRockets[0].totalSpeed);
+        if(myRockets[0].totalMaxSpeed==myRockets[0].totalSpeed){
+            alert(`ya has llegado al limite de pontencia del rocket ${myRockets[0].code}`)
+        }
+         
 }
+
+function accelerateRocket2(){
+     
+    for(var i=0;i<myRockets[1].thrusters.length;i++) {
+        if (myRockets[1].thrusters[i].power<myRockets[1].thrusters[i].maxPower){
+            myRockets[1].accelerate(i)
+            
+        } else {
+            console.log(myRockets[1].code + ' ha llegado a la maxima potencia en su propulsor ' + myRockets[1].thrusters[i] )
+        }
+
+        
+        
+    }
+        console.log(myRockets[1].code + ' speed is ' + myRockets[1].totalSpeed);
+        if(myRockets[1].totalMaxSpeed==myRockets[1].totalSpeed){
+            alert(`ya has llegado al limite de pontencia del rocket ${myRockets[1].code}`)
+        }
+}
+
 
 function slowingRocket(myRockets:any,indexToSlow?:number){
     if(typeof indexToSlow == 'number'){
@@ -160,7 +194,7 @@ function repeatFunction(functionToRepeat:any,times:number,myRockets?:any) {
      }
 }
 
-function showCurentSpeedRocket(myRockets:any){
+/*function showCurentSpeedRocket(myRockets:any){
        
  
    calculateCurrentSpeed(myRockets)
@@ -183,4 +217,4 @@ function showCurentSpeedRocket(myRockets:any){
     repeatFunction(function(){accelerateRocket(myRockets)},15,myRockets)
     
  
-}
+}*/
