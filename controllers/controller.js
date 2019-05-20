@@ -5,22 +5,6 @@ separar funciones
 testear antes de crear objeto
 ocultar lo que no se necesita
  */
-// function createRockets() {    
-//     let rocket1:any, rocket2:any
-//     rocket1=['32WESSDS',[10,30,80]]
-//     rocket2=['LDSFJA32',[30,40,50,50,30,10]]
-//     let rockets = [rocket1,rocket2]
-//     let myRockets:any = []
-//     const startPower = 0
-//     for (let i = 0; i < rockets.length; ++i) {
-//         myRockets[i] = new Rocket(rockets[i][0]);
-//         for (let e = 0; e < rockets[i][1].length; e++) {
-//             myRockets[i].addThruster(new Thruster(rockets[i][1][e],startPower))
-//             console.log(myRockets[i].thrusters[e].power);
-//              }
-//     }
-//     showRockets(myRockets, rockets);                  
-// }
 var myRockets = [];
 function createRocket1() {
     var rocket1;
@@ -49,24 +33,34 @@ function createRocket2() {
     showRocket(myRocket2, 2, rocket2);
 }
 function showRocket(myRocket, rocketnumber, whichRocket) {
-    var displayThisRocket = '.displayRocket' + rocketnumber;
+    var displayThisRocket = '.rocketCreated' + rocketnumber;
     var hideThisButton = '#createRocket' + rocketnumber;
     var hideButton = document.querySelector(hideThisButton);
     hideButton.classList.add("d-none");
+    var showActionButtons = document.querySelector('.rocketActions');
+    showActionButtons.classList.remove("d-none");
     var displayRocketContainer = document.querySelector(displayThisRocket);
     displayRocketContainer.textContent = "";
-    var rocket = document.createElement('p');
-    rocket.classList.add("text-secondary");
-    displayRocketContainer.appendChild(rocket).textContent = "Rocket " + myRocket.code + " has " + myRocket.thrusters.length + " thrusters with max power " + whichRocket[1];
+    //let rocket = document.createElement('p'); 
+    //rocket.classList.add("text-secondary");
+    displayRocketContainer.textContent = "Rocket " + myRocket.code + " has " + myRocket.thrusters.length + " thrusters with max power " + whichRocket[1];
     //showCurentSpeedRocket(myRockets)
 }
-function calculateCurrentSpeed(myRockets, showInfo) {
+function calculateCurrentSpeed(myRocket, showInfo) {
     //calculating current speed
-    console.log(myRockets);
-    for (var key in myRockets) {
-        var additionalInfo = document.createElement('p');
-        document.querySelector('.displayRockets').appendChild(additionalInfo).textContent = myRockets[key].code + ' current speed is ' + myRockets[key].totalSpeed;
+    //console.log(myRockets);
+    //for (var key in myRockets) {
+    console.log(myRocket);
+    var currentSpeedClass = '';
+    if (myRocket.code == "32WESSDS") {
+        currentSpeedClass = '.currentSpeed1';
     }
+    else if (myRocket.code == "LDSFJA32") {
+        currentSpeedClass = '.currentSpeed2';
+    }
+    var additionalInfo = document.querySelector(currentSpeedClass);
+    additionalInfo.textContent = myRocket.code + ' current speed is ' + myRocket.totalSpeed;
+    //}
 }
 function calculateMaxSpeed(myRocket) {
     for (var i = 0; i < myRocket.thrusters.length; i++) {
@@ -88,6 +82,7 @@ function accelerateRocket1() {
     if (myRockets[0].totalMaxSpeed == myRockets[0].totalSpeed) {
         alert("ya has llegado al limite de pontencia del rocket " + myRockets[0].code);
     }
+    calculateCurrentSpeed(myRockets[0]);
 }
 function accelerateRocket2() {
     for (var i = 0; i < myRockets[1].thrusters.length; i++) {
@@ -102,30 +97,35 @@ function accelerateRocket2() {
     if (myRockets[1].totalMaxSpeed == myRockets[1].totalSpeed) {
         alert("ya has llegado al limite de pontencia del rocket " + myRockets[1].code);
     }
+    calculateCurrentSpeed(myRockets[1]);
 }
-function slowingRocket(myRockets, indexToSlow) {
-    if (typeof indexToSlow == 'number') {
-        for (var e = 0; e < myRockets[indexToSlow].thrusters.length; e++) {
-            if (myRockets[indexToSlow].thrusters[e].power >= 10) {
-                myRockets[indexToSlow].slowing(e);
-            }
-            else {
-                console.log(myRockets[indexToSlow].code + ' ha frenado completmente su propulsor ' + myRockets[indexToSlow].thrusters[e]);
-            }
+function brakeRocket1() {
+    for (var i = 0; i < myRockets[0].thrusters.length; i++) {
+        if (myRockets[0].thrusters[i].power >= 10) {
+            myRockets[0].slowing(i);
+        }
+        else {
+            console.log(myRockets[0].code + ' ha frenado completmente su propulsor ' + myRockets[0].thrusters[i]);
         }
     }
-    else {
-        for (var i = 0; i < myRockets.length; i++) {
-            for (var e = 0; e < myRockets[i].thrusters.length; e++) {
-                if (myRockets[i].thrusters[e].power >= 10) {
-                    myRockets[i].slowing(e);
-                }
-                else {
-                    console.log(myRockets[i].code + ' ha frenado completmente su propulsor ' + myRockets[i].thrusters[e]);
-                }
-            }
+    if (myRockets[0].totalSpeed == 0) {
+        alert("ya has llegado al limite de pontencia del rocket " + myRockets[0].code);
+    }
+    calculateCurrentSpeed(myRockets[0]);
+}
+function brakeRocket2() {
+    for (var i = 0; i < myRockets[1].thrusters.length; i++) {
+        if (myRockets[1].thrusters[i].power >= 10) {
+            myRockets[1].slowing(i);
+        }
+        else {
+            console.log(myRockets[1].code + ' ha frenado completmente su propulsor ' + myRockets[1].thrusters[i]);
         }
     }
+    if (myRockets[1].totalSpeed == 0) {
+        alert("ya has llegado al limite de pontencia del rocket " + myRockets[1].code);
+    }
+    calculateCurrentSpeed(myRockets[1]);
 }
 function addRocketActionInfo(action, times, myRockets, indexToSlow) {
     if (typeof indexToSlow == 'number') {
@@ -146,6 +146,12 @@ function repeatFunction(functionToRepeat, times, myRockets) {
     if (myRockets) {
         calculateCurrentSpeed(myRockets);
     }
+}
+function printRocket1() {
+    document.querySelector('.rocket1icon').classList.remove("d-none");
+}
+function printRocket2() {
+    document.querySelector('.rocket2icon').classList.remove("d-none");
 }
 /*function showCurentSpeedRocket(myRockets:any){
        
