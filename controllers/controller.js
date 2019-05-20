@@ -5,7 +5,6 @@ separar funciones
 testear antes de crear objeto
 ocultar lo que no se necesita
  */
-
 function createRockets() {
     var rocket1, rocket2;
     rocket1 = ['32WESSDS', [10, 30, 80]];
@@ -22,7 +21,6 @@ function createRockets() {
     }
     showRockets(myRockets, rockets);
 }
-
 function showRockets(myRockets, rockets) {
     var button = document.querySelector('#createButton');
     button.classList.add("d-none");
@@ -43,10 +41,10 @@ function calculateCurrentSpeed(myRockets, showInfo) {
         document.querySelector('.displayRockets').appendChild(additionalInfo).textContent = myRockets[key].code + ' current speed is ' + myRockets[key].totalSpeed;
     }
 }
-
 function calculateMaxSpeed(myRockets) {
     //calculating max speed
     for (var key in myRockets) {
+        //console.log(myRockets[key].thrusters.length + ' ' + myRockets[key].code);
         for (var i = 0; i < myRockets[key].thrusters.length; i++) {
             myRockets[key].totalMaxSpeed += myRockets[key].thrusters[i].maxPower;
         }
@@ -54,7 +52,6 @@ function calculateMaxSpeed(myRockets) {
     }
 }
 function accelerateRocket(myRockets, indexToSlow) {
-    
     console.log(myRockets);
     if (typeof indexToSlow == 'number') {
         for (var e = 0; e < myRockets[indexToSlow].thrusters.length; e++) {
@@ -78,7 +75,6 @@ function accelerateRocket(myRockets, indexToSlow) {
             }
             console.log(myRockets[key].code + ' speed is ' + myRockets[key].totalSpeed);
         }
-    
     }
 }
 function slowingRocket(myRockets, indexToSlow) {
@@ -117,45 +113,24 @@ function addRocketActionInfo(action, times, myRockets, indexToSlow) {
         }
     }
 }
+function repeatFunction(functionToRepeat, times, myRockets) {
+    for (var i = 0; i < times; i++) {
+        functionToRepeat();
+    }
+    if (myRockets) {
+        calculateCurrentSpeed(myRockets);
+    }
+}
 function showCurentSpeedRocket(myRockets) {
-    //mostrar velocidad actual de cohetes (cero)     
     calculateCurrentSpeed(myRockets);
     calculateMaxSpeed(myRockets);
     addRocketActionInfo('accelerating', 3, myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    calculateCurrentSpeed(myRockets);
+    repeatFunction(function () { accelerateRocket(myRockets); }, 3, myRockets);
     addRocketActionInfo('slowing', 5, myRockets, 0);
-    slowingRocket(myRockets,0)
-    slowingRocket(myRockets,0)
-    slowingRocket(myRockets,0)
-    slowingRocket(myRockets,0)
-    slowingRocket(myRockets,0)
-    addRocketActionInfo('accelerating',7,myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    accelerateRocket(myRockets,1)
-    calculateCurrentSpeed(myRockets)
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    accelerateRocket(myRockets);
-    calculateCurrentSpeed(myRockets)
-  
+    repeatFunction(function () { slowingRocket(myRockets, 0); }, 5);
+    addRocketActionInfo('accelerating', 7, myRockets, 1);
+    repeatFunction(function () { accelerateRocket(myRockets, 1); }, 7, myRockets);
+    addRocketActionInfo('accelerating', 15, myRockets, 0);
+    addRocketActionInfo('accelerating', 15, myRockets, 1);
+    repeatFunction(function () { accelerateRocket(myRockets); }, 15, myRockets);
 }
