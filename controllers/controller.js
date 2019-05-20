@@ -141,16 +141,21 @@ function showCurentSpeedRocket(myRockets) {
     accelerateRocket(myRockets,1)
     accelerateRocket(myRockets,1)
     calculateCurrentSpeed(myRockets)
-    //acelerar 3 veces
-    //mostrar velocidad actual
-    //frenar 5 veces con el primero, acelerar 7 con el segundo
-    //mostrar velocidad actual
-    //acelerar 15 veces con los dos cohetes
-    //mostrar velocidad actual
-    // if (myRockets[i].thrusters[e].power<myRockets[i].thrusters[e].maxPower){
-    //     myRockets[i].accelerate(e) 
-    //     } else {
-    //     alert('has llegado a la maxima potencia')
-    // }
-    //console.log(myRockets[i].thrusters[e].power);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    accelerateRocket(myRockets);
+    calculateCurrentSpeed(myRockets)
+  
 }
