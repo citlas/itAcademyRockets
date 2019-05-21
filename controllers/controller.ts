@@ -188,10 +188,27 @@ function repeatFunction(functionToRepeat:any,times:number,myRockets?:any) {
 
 function printRocket1(){
     document.querySelector('.rocket1icon')!.classList.remove("d-none");
+    document.querySelector('.rocket1icon')!.classList.add("initialRocket");
+    setTimeout(function () {
+        document.querySelector('.rocket1icon')!.classList.add("moveRocket");
+    }, 1000);
 }
 
 function printRocket2(){
     document.querySelector('.rocket2icon')!.classList.remove("d-none");
+    document.querySelector('.rocket2icon')!.classList.add("initialRocket");
+    setTimeout(function () {
+        document.querySelector('.rocket2icon')!.classList.add("moveRocket");
+    }, 1000);
+
+}
+
+function printAllRockets() {
+    document.querySelector('.rocket1icon')!.classList.remove("moveRocket");
+    printRocket1();
+
+    document.querySelector('.rocket2icon')!.classList.remove("moveRocket");
+    printRocket2();
 }
 
 /*function showCurentSpeedRocket(myRockets:any){

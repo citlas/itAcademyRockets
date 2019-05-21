@@ -1,0 +1,31 @@
+.rocket1icon,.rocket2icon{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.iconContainer{
+    width: 200px
+}
+
+.moveRocket {
+    color: blue;
+    animation: mover 1s forwards;
+    width: 200px;
+  }
+  
+  
+  @keyframes mover {
+      0% { 
+        transform: translateX(0);
+        color: blue
+    }
+      100% { 
+        transform: translateX(150px);
+        color: red;
+    }
+  }
+
+  .initialRocket{
+      color: green;
+  }
+  
