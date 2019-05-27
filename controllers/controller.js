@@ -31,6 +31,21 @@ function showRocket(myRocket, rocketnumber, whichRocket) {
     //show action buttons
     var showActionButtons = document.querySelector('.rocketActions');
     showActionButtons.classList.remove("d-none");
+    console.log(rocketnumber);
+    if (rocketnumber == 1) {
+        var listToRemove = document.querySelectorAll(".rocket1Action");
+        listToRemove.forEach(function (element) {
+            element.classList.remove("d-none");
+        });
+        // document.querySelectorAll('.rocket1Action')!.classList.remove("d-none");
+    }
+    else if (rocketnumber == 2) {
+        var listToRemove = document.querySelectorAll(".rocket2Action");
+        listToRemove.forEach(function (element) {
+            element.classList.remove("d-none");
+        });
+        // document.querySelector('.rocket2Action')!.classList.remove("d-none");
+    }
     var displayRocketContainer = document.querySelector(displayThisRocket);
     displayRocketContainer.textContent = "";
     displayRocketContainer.textContent = "Rocket " + myRocket.code + " has " + myRocket.thrusters.length + " thrusters with max power " + whichRocket[1];

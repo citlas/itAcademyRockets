@@ -7,11 +7,13 @@ function createRocket(rocketToCreate:any,rocketNumber:number){
     const startPower = 0
     myRocket = new Rocket(rocketToCreate[0]);
     
+
     for (let i = 0; i < rocketToCreate[1].length; i++) {
         myRocket.addThruster(new Thruster(rocketToCreate[1][i],startPower))
     }
     myRockets.push(myRocket)
     calculateMaxSpeed(myRocket)
+    
     showRocket(myRocket,rocketNumber,rocketToCreate); 
 }
 
@@ -39,6 +41,23 @@ function showRocket(myRocket:any,rocketnumber:number,whichRocket:any){
     //show action buttons
     let showActionButtons:any = document.querySelector('.rocketActions')! 
     showActionButtons.classList.remove("d-none");
+
+    console.log(rocketnumber);
+
+    if(rocketnumber==1){
+        var listToRemove = document.querySelectorAll(".rocket1Action");
+        listToRemove.forEach(function(element) {
+        element.classList.remove("d-none");
+});
+        // document.querySelectorAll('.rocket1Action')!.classList.remove("d-none");
+    } else if (rocketnumber==2){
+        var listToRemove = document.querySelectorAll(".rocket2Action");
+        listToRemove.forEach(function(element) {
+        element.classList.remove("d-none");
+});
+
+        // document.querySelector('.rocket2Action')!.classList.remove("d-none");
+    }
 
     let displayRocketContainer:any = document.querySelector(displayThisRocket)! 
     displayRocketContainer.textContent = "";
